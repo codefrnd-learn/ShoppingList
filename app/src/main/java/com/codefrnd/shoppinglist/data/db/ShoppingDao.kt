@@ -1,7 +1,8 @@
-package com.codefrnd.shoppinglist
+package com.codefrnd.shoppinglist.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.codefrnd.shoppinglist.data.db.entites.ShoppingItem
 
 @Dao
 interface ShoppingDao {
@@ -12,5 +13,5 @@ interface ShoppingDao {
     suspend fun deleteItem(item: ShoppingItem)
 
     @Query("SELECT * FROM shopping_items")
-    suspend fun getAllShoppingItem() : LiveData<List<ShoppingItem>>
+    fun getAllShoppingItem() : LiveData<List<ShoppingItem>>
 }
