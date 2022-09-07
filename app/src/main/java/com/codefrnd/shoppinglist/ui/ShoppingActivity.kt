@@ -15,8 +15,15 @@ import com.codefrnd.shoppinglist.ui.shoppinglist.AddShoppingItemDialog
 import com.codefrnd.shoppinglist.ui.shoppinglist.ShoppingViewModel
 import com.codefrnd.shoppinglist.ui.shoppinglist.ShoppingViewModelFactory
 import kotlinx.android.synthetic.main.activity_shopping.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class ShoppingActivity : AppCompatActivity() {
+class ShoppingActivity : AppCompatActivity(), KodeinAware {
+
+    override val kodein by kodein()
+    private val factory: ShoppingViewModelFactory by instance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping)
@@ -25,10 +32,6 @@ class ShoppingActivity : AppCompatActivity() {
          * DO NOT INSTANTIATE
          * IT MAKES IT DEPENDENT ON ACTIVITY
          */
-
-        val database = ShoppingDatabase(this)
-        val repository = ShoppingRepository(database)
-        val factory = ShoppingViewModelFactory(repository)
 
         val viewModel = ViewModelProviders.of(this, factory)[ShoppingViewModel::class.java]
 
